@@ -25,7 +25,7 @@ glEnable(GL_DEPTH_TEST)
 glShadeModel(GL_SMOOTH) # shader
 
 # carrega o obj
-obj = OBJ("ogrito.obj", swapyz=True)
+obj = OBJ("scene.obj", swapyz=True)
 
 clock = pygame.time.Clock()
 
