@@ -25,7 +25,8 @@ glEnable(GL_DEPTH_TEST)
 glShadeModel(GL_SMOOTH) # shader
 
 # carrega o obj
-obj = OBJ("ogrito.obj", swapyz=True)
+obj = OBJ("walls.obj", swapyz=True)
+pia = OBJ("pia.obj", swapyz=True)
 
 clock = pygame.time.Clock()
 
@@ -72,6 +73,14 @@ while 1:
     glRotate(ry, 1, 0, 0)
     glRotate(rx, 0, 1, 0)
     glCallList(obj.gl_list)
+    # ==================================
+
+    # renderizar pia ================
+    glPushMatrix()
+    glTranslate(8.50, -1, 3)
+    glRotate(180, 0, 1, 0)
+    glCallList(pia.gl_list)
+    glPopMatrix()
     # ==================================
 
     pygame.display.set_caption('projeto - CG')
