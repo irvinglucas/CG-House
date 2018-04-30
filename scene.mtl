@@ -2,7 +2,7 @@
 # Material Count: 9
 
 newmtl Material.001
-Ns 94.117647
+Ns 92.156863
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
 Ks 0.500000 0.500000 0.500000
@@ -10,18 +10,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd wood_floor.jpg
-
-newmtl Material.002
-Ns 94.117647
-Ka 1.000000 1.000000 1.000000
-Kd 0.640000 0.640000 0.640000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.000000
-d 1.000000
-illum 2
-map_Kd bedsheet.jpg
+map_Kd /home/rodrigo/Desktop/CG-House/wood_floor.jpg
 
 newmtl Material.003
 Ns 92.156863
@@ -32,9 +21,9 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd wardrobe.jpg
+map_Kd /home/rodrigo/Desktop/CG-House/wardrobe.jpg
 
-newmtl Material_NONE
+newmtl Material.004
 Ns 94.117647
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
@@ -43,6 +32,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
+map_Kd wood_bed.jpeg
 
 newmtl Material_NONE.001
 Ns 92.156863
@@ -54,7 +44,7 @@ Ni 1.000000
 d 1.000000
 illum 2
 
-newmtl Material_brick_wall.jpg
+newmtl Material_NONE.002
 Ns 94.117647
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
@@ -63,10 +53,31 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd brick_wall.jpg
+
+newmtl Material_bedsheet.jpg
+Ns 94.117647
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd bedsheet.jpg
+
+newmtl Material_brick_wall.jpg
+Ns 92.156863
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd /home/rodrigo/Desktop/CG-House/brick_wall.jpg
 
 newmtl Material_floor_01.jpg
-Ns 94.117647
+Ns 92.156863
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
 Ks 0.500000 0.500000 0.500000
@@ -74,10 +85,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd floor_01.jpg
+map_Kd /home/rodrigo/Desktop/CG-House/floor_01.jpg
 
 newmtl Material_wall_01.jpg
-Ns 94.117647
+Ns 92.156863
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
 Ks 0.500000 0.500000 0.500000
@@ -85,15 +96,4 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd wall_01.jpg
-
-newmtl Material_wood_bed.jpeg
-Ns 94.117647
-Ka 1.000000 1.000000 1.000000
-Kd 0.640000 0.640000 0.640000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.000000
-d 1.000000
-illum 2
-map_Kd wood_bed.jpeg
+map_Kd /home/rodrigo/Desktop/CG-House/wall_01.jpg
