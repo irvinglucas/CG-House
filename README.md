@@ -4,7 +4,7 @@
 * pygame
 * pyopengl
 
-## Getting started
+### Getting started
 
 To create an object from an .obj file just type as " my_obj = OBJ("my_obj.obj", swapyz=True) " where my_obj.obj is the obj file name.
 
