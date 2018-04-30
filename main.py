@@ -8,6 +8,7 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 # modulo para carregar obj
 from objloader import *
+from util import *
 
 pygame.init()
 viewport = (800,600)
@@ -25,7 +26,8 @@ glEnable(GL_DEPTH_TEST)
 glShadeModel(GL_SMOOTH) # shader
 
 # carrega o obj
-obj = OBJ("scene.obj", swapyz=True)
+walls = OBJ("walls.obj", swapyz=True)
+couch = OBJ("couch.obj", swapyz=True)
 
 clock = pygame.time.Clock()
 
@@ -67,11 +69,16 @@ while 1:
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
 
-    # renderizar objeto ================
+    # renderizar objetos ================
+    glPushMatrix()
     glTranslate(tx/20., ty/20., - zpos)
     glRotate(ry, 1, 0, 0)
     glRotate(rx, 0, 1, 0)
-    glCallList(obj.gl_list)
+
+    render(walls)
+    render(couch)
+
+    glPopMatrix()
     # ==================================
 
     pygame.display.set_caption('projeto - CG')
