@@ -26,16 +26,18 @@ glEnable(GL_DEPTH_TEST)
 glShadeModel(GL_SMOOTH) # shader
 
 # carrega o obj
-walls = OBJ("walls.obj", swapyz=True)
-couch = OBJ("couch.obj", swapyz=True)
-table = OBJ("table.obj", swapyz=True)
+walls  = OBJ("walls.obj", swapyz=True)
+couch  = OBJ("couch.obj", swapyz=True)
+table  = OBJ("table.obj", swapyz=True)
+scream = OBJ("ogrito.obj",swapyz=True)
+carpet = OBJ("carpet.obj",swapyz=True)
 
 clock = pygame.time.Clock()
 
 glMatrixMode(GL_PROJECTION)
 glLoadIdentity()
 width, height = viewport
-gluPerspective(90.0, width/float(height), 1, 100.0)
+gluPerspective(70.0, width/float(height), 1, 100.0)
 glEnable(GL_DEPTH_TEST)
 glMatrixMode(GL_MODELVIEW)
 
@@ -76,9 +78,17 @@ while 1:
     glRotate(ry, 1, 0, 0)
     glRotate(rx, 0, 1, 0)
 
+    # ============ sala ===================
     render(walls)
     render(couch)
-    render(table, pos=[3.3,0,-2.5], rot=[0,90,0], scale=[.7,.7,.7])
+    render(table , pos=[3.3,0,-2.5], rot=[0,90,0], scale=[.7,.7,.7])
+    render(scream, pos=[3,3.5,-6.7], scale=[.8,.8,1])
+    render(carpet, pos=[-.3,0,1], scale=[1.3, 1 ,1.3])
+    # ======================================
+
+    # ============
+    # demais objetos aqui
+    # ============
 
     glPopMatrix()
     # ==================================
