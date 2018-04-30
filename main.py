@@ -28,6 +28,7 @@ glShadeModel(GL_SMOOTH) # shader
 # carrega o obj
 walls = OBJ("walls.obj", swapyz=True)
 couch = OBJ("couch.obj", swapyz=True)
+table = OBJ("table.obj", swapyz=True)
 
 clock = pygame.time.Clock()
 
@@ -77,6 +78,7 @@ while 1:
 
     render(walls)
     render(couch)
+    render(table, pos=[3.3,0,-2.5], rot=[0,90,0], scale=[.7,.7,.7])
 
     glPopMatrix()
     # ==================================
