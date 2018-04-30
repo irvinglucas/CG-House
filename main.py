@@ -78,8 +78,12 @@ while 1:
     glRotate(ry, 1, 0, 0)
     glRotate(rx, 0, 1, 0)
 
-    # ============ sala ===================
+    # ============ estrutura =============
     render(walls)
+    # portas e janelas
+    # ====================================
+
+    # ============ sala ===================
     render(couch)
     render(table , pos=[3.3,0,-2.5], rot=[0,90,0], scale=[.7,.7,.7])
     render(scream, pos=[3,3.5,-6.7], scale=[.8,.8,1])
@@ -87,7 +91,7 @@ while 1:
     # ======================================
 
     # ============
-    # demais objetos aqui
+    # outros comodos
     # ============
 
     glPopMatrix()
