@@ -35,6 +35,7 @@ carpet = OBJ("carpet.obj",swapyz=True)
 pia    = OBJ("pia.obj", swapyz=True)
 fogao    = OBJ("fogao.obj", swapyz=True)
 estante = OBJ("estante.obj", swapyz=True)
+tapete = OBJ("tapete.obj", swapyz=True)
 
 clock = pygame.time.Clock()
 
@@ -98,6 +99,7 @@ while 1:
     render(pia , pos=[8.50, -1, 2.90], rot=[0,180,0])
     render(fogao , pos=[3.20, 0.90, 1.30])
     render(estante , pos=[3.85, -0.39, 5.6])
+    render(tapete , pos=[6, -1.2, 5.6], rot=[0,90,0])
     # ======================================
 
     # ============
