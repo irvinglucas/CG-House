@@ -8,6 +8,7 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 # modulo para carregar obj
 from objloader import *
+from util import *
 
 pygame.init()
 viewport = (800,600)
@@ -25,15 +26,22 @@ glEnable(GL_DEPTH_TEST)
 glShadeModel(GL_SMOOTH) # shader
 
 # carrega o obj
-obj = OBJ("walls.obj", swapyz=True)
-pia = OBJ("pia.obj", swapyz=True)
+walls  = OBJ("walls.obj", swapyz=True)
+couch  = OBJ("couch.obj", swapyz=True)
+table  = OBJ("table.obj", swapyz=True)
+scream = OBJ("ogrito.obj",swapyz=True)
+carpet = OBJ("carpet.obj",swapyz=True)
+
+pia    = OBJ("pia.obj", swapyz=True)
+fogao    = OBJ("fogao.obj", swapyz=True)
+estante = OBJ("estante.obj", swapyz=True)
 
 clock = pygame.time.Clock()
 
 glMatrixMode(GL_PROJECTION)
 glLoadIdentity()
 width, height = viewport
-gluPerspective(90.0, width/float(height), 1, 100.0)
+gluPerspective(70.0, width/float(height), 1, 100.0)
 glEnable(GL_DEPTH_TEST)
 glMatrixMode(GL_MODELVIEW)
 
@@ -68,18 +76,34 @@ while 1:
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
 
-    # renderizar objeto ================
+    # renderizar objetos ================
+    glPushMatrix()
     glTranslate(tx/20., ty/20., - zpos)
     glRotate(ry, 1, 0, 0)
     glRotate(rx, 0, 1, 0)
-    glCallList(obj.gl_list)
-    # ==================================
 
-    # renderizar pia ================
-    glPushMatrix()
-    glTranslate(8.50, -1, 3)
-    glRotate(180, 0, 1, 0)
-    glCallList(pia.gl_list)
+    # ============ estrutura =============
+    render(walls)
+    # portas e janelas
+    # ====================================
+
+    # ============ sala ===================
+    render(couch)
+    render(table , pos=[3.3,0,-2.5], rot=[0,90,0], scale=[.7,.7,.7])
+    render(scream, pos=[3,3.5,-6.7], scale=[.8,.8,1])
+    render(carpet, pos=[-.3,0,1], scale=[1.3, 1 ,1.3])
+    # ======================================
+
+    # ============ cozinha ===================
+    render(pia , pos=[8.50, -1, 2.90], rot=[0,180,0])
+    render(fogao , pos=[3.20, 0.90, 1.30])
+    render(estante , pos=[3.85, -0.39, 5.6])
+    # ======================================
+
+    # ============
+    # outros comodos
+    # ============
+
     glPopMatrix()
     # ==================================
 
