@@ -26,11 +26,26 @@ glEnable(GL_DEPTH_TEST)
 glShadeModel(GL_SMOOTH) # shader
 
 # carrega o obj
+# gabriel ===============================
 walls  = OBJ("walls.obj", swapyz=True)
 couch  = OBJ("couch.obj", swapyz=True)
 table  = OBJ("table.obj", swapyz=True)
 scream = OBJ("ogrito.obj",swapyz=True)
 carpet = OBJ("carpet.obj",swapyz=True)
+# artur =================================
+pia     = OBJ("pia.obj", swapyz=True)
+fogao   = OBJ("fogao.obj", swapyz=True)
+estante = OBJ("estante.obj", swapyz=True)
+tapete  = OBJ("tapete.obj", swapyz=True)
+# nao confie no pae ====================
+cama1     = OBJ("bed.obj",swapyz=True)
+wardrobe1 = OBJ("wardrobe.obj", swapyz=True)
+cama2     = OBJ("bed.obj",swapyz=True)
+wardrobe2 = OBJ("wardrobe.obj", swapyz=True)
+# paulo ===============================
+bathtub = OBJ("bathtub.obj",swapyz=True)
+sink    = OBJ("sink.obj",swapyz=True)
+toilet  = OBJ("toilet.obj",swapyz=True)
 
 clock = pygame.time.Clock()
 
@@ -90,9 +105,27 @@ while 1:
     render(carpet, pos=[-.3,0,1], scale=[1.3, 1 ,1.3])
     # ======================================
 
-    # ============
-    # outros comodos
-    # ============
+    # ============ cozinha ===================
+    render(pia , pos=[8.50, -1, 2.90], rot=[0,180,0])
+    render(fogao , pos=[3.20, 0.90, 1.30])
+    render(estante , pos=[3.85, -0.39, 5.6])
+    render(tapete , pos=[6, -1.2, 5.6], rot=[0,90,0])
+    # ======================================
+    
+    #============= quarto 1 ===================
+    render(cama1)
+    render(wardrobe1)
+    #==========================================
+    #============= quarto 2 ===================
+    render(cama2 ,    pos=[0,0,-10])
+    render(wardrobe2, pos=[0,0,-10])
+    #==========================================
+    
+    # ============ Banheiro ================
+    render(bathtub,pos=[0,0.61,5.8],rot=[0,90,0],scale=[.7,.7,.6])
+    render(toilet,pos=[1.6,-0.04,3],rot=[0,180,0],scale=[.5,.5,.55])
+    render(sink,pos=[-1.5,0.5,3],rot=[0,0,0],scale=[2,2,2])
+    # ======================================
 
     glPopMatrix()
     # ==================================

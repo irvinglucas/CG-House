@@ -7,9 +7,9 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd wood_bed.jpeg
+map_Kd corfogao.png
 
-newmtl Material_NONE
+newmtl Material_ferroM.jpg
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
@@ -18,8 +18,9 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
+map_Kd ferroM.jpg
 
-newmtl Material_bedsheet.jpg
+newmtl Material_vidro.jpg
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
@@ -28,4 +29,4 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd bedsheet.jpg
+map_Kd vidro.jpg
