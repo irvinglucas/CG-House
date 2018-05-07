@@ -1,6 +1,4 @@
-#self.model = np.array(self.model, dtype='float32')
 import pygame
-import numpy as np
 from OpenGL.GL import *
 
 def MTL(filename):
@@ -33,12 +31,17 @@ def MTL(filename):
     return contents
 
 class OBJ:
-    def __init__(self, filename, swapyz=False):
+    def __init__(self, filename, pos=[0,0,0],rot=[0,0,0],scale=[1,1,1], isTrigger=False):
         """Carrega dados do arquivo OBJ. """
         self.vertices = []
         self.normals = []
         self.texcoords = []
         self.faces = []
+
+        self.pos       = pos
+        self.rot       = rot
+        self.scale     = scale
+        self.isTrigger = isTrigger
 
         material = None
         for line in open(filename, "r"):
@@ -47,13 +50,9 @@ class OBJ:
             if not values: continue
             if values[0] == 'v':
                 v = list(map(float, values[1:4]))
-                #if swapyz:
-                #    v = v[0], v[2], v[1]
                 self.vertices.append(v)
             elif values[0] == 'vn':
                 v = list(map(float, values[1:4]))
-                #if swapyz:
-                #    v = v[0], v[2], v[1]
                 self.normals.append(v)
             elif values[0] == 'vt':
                 self.texcoords.append( list(map(float, values[1:3])) )
@@ -106,3 +105,13 @@ class OBJ:
         
         glDisable(GL_TEXTURE_2D)
         glEndList()
+
+    def render(self):
+        glPushMatrix()
+        glTranslate(self.pos[0], self.pos[1], self.pos[2])
+        glScale(self.scale[0], self.scale[1], self.scale[2])
+        glRotate(self.rot[0], 1, 0, 0)
+        glRotate(self.rot[1], 0, 1, 0)
+        glRotate(self.rot[2], 0, 0, 1)
+        glCallList(self.gl_list)
+        glPopMatrix()

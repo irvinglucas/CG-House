@@ -25,27 +25,67 @@ glEnable(GL_COLOR_MATERIAL)
 glEnable(GL_DEPTH_TEST)
 glShadeModel(GL_SMOOTH) # shader
 
+font = pygame.font.SysFont(None, 55)
+WHITE = (255, 255, 255)
+text = font.render('Use W, A, S, D to move', True, WHITE)
 # carrega o obj
 # gabriel ===============================
-walls  = OBJ("walls.obj", swapyz=True)
-couch  = OBJ("couch.obj", swapyz=True)
-table  = OBJ("table.obj", swapyz=True)
-scream = OBJ("ogrito.obj",swapyz=True)
-carpet = OBJ("carpet.obj",swapyz=True)
+walls = [
+		OBJ("wall_01.obj"),
+		OBJ("wall_02.obj"),
+		OBJ("wall_03.obj"),
+		OBJ("wall_04.obj"),
+		OBJ("wall_05.obj"),
+		OBJ("wall_06.obj"),
+		OBJ("wall_07.obj"),
+		OBJ("wall_08.obj"),
+		OBJ("wall_09.obj"),
+		OBJ("wall_10.obj"),
+		OBJ("wall_11.obj"),
+		OBJ("wall_12.obj"),
+		OBJ("wall_13.obj"),
+		OBJ("wall_14.obj"),
+		OBJ("wall_15.obj"),
+		OBJ("wall_16.obj"),
+		OBJ("wall_17.obj"),
+		OBJ("wall_18.obj"),
+		OBJ("wall_19.obj"),
+		OBJ("wall_20.obj"),
+		OBJ("wall_21.obj"),
+		OBJ("wall_22.obj"),
+		OBJ("wall_23.obj"),
+		OBJ("wall_24.obj"),
+		]
+
+#walls  = OBJ("walls.obj", swapyz=True)
+window = OBJ("window.obj")
+floor  = OBJ("floor.obj" )
+couch  = OBJ("couch.obj", pos=[0,0,0] )
+table  = OBJ("table.obj" )
+scream = OBJ("ogrito.obj")
+carpet = OBJ("carpet.obj")
 # artur =================================
-pia     = OBJ("pia.obj", swapyz=True)
-fogao   = OBJ("fogao.obj", swapyz=True)
-estante = OBJ("estante.obj", swapyz=True)
-tapete  = OBJ("tapete.obj", swapyz=True)
+pia     = OBJ("pia.obj")
+fogao   = OBJ("fogao.obj",   pos=[3.20, 0.90, 1.30] )
+estante = OBJ("estante.obj", pos=[3.85, -0.39, 5.6])
+tapete  = OBJ("tapete.obj")
 # nao confie no pae ====================
-cama1     = OBJ("bed.obj",swapyz=True)
-wardrobe1 = OBJ("wardrobe.obj", swapyz=True)
-cama2     = OBJ("bed.obj",swapyz=True)
-wardrobe2 = OBJ("wardrobe.obj", swapyz=True)
+cama1     = OBJ("bed.obj")
+wardrobe1 = OBJ("wardrobe.obj")
+cama2     = OBJ("bed.obj", pos=[0,0,-10])
+wardrobe2 = OBJ("wardrobe.obj", pos=[0,0,-10])
 # paulo ===============================
-bathtub = OBJ("bathtub.obj",swapyz=True)
-sink    = OBJ("sink.obj",swapyz=True)
-toilet  = OBJ("toilet.obj",swapyz=True)
+bathtub = OBJ("bathtub.obj")
+sink    = OBJ("sink.obj")
+toilet  = OBJ("toilet.obj")
+
+collision_mask = [couch,table,pia,fogao,estante,cama1,cama2,wardrobe1,wardrobe2,bathtub,sink,toilet]
+for x in range (len(walls)):
+	if x not in [3,6,10   , 15,18,21]:
+		collision_mask.append(walls[x])
+
+personagem = OBJ("cubo.obj",pos=[0,0,0])
+
 
 clock = pygame.time.Clock()
 
@@ -56,17 +96,48 @@ gluPerspective(70.0, width/float(height), 1, 100.0)
 glEnable(GL_DEPTH_TEST)
 glMatrixMode(GL_MODELVIEW)
 
-rx, ry = (0,0)
-tx, ty = (0,0)
-zpos = 5
+#rx, ry = (0,0)
+#tx, ty = (0,0)
+#zpos = 5
+rx, ry = (-90,88)
+tx, ty = (4, -1)
+zpos = 9
+
 rotate = move = False
+
+move_forward = False
+move_back    = False
+move_left    = False
+move_right   = False
+move_speed   = 0.1
+
 while 1:
     clock.tick(30)
+
     for e in pygame.event.get():
         if e.type == QUIT:
             sys.exit()
-        elif e.type == KEYDOWN and e.key == K_ESCAPE:
-            sys.exit()
+        elif e.type == KEYDOWN:
+            if e.key == K_w:
+                move_forward = True
+            elif e.key == K_s:
+                move_back    = True
+            elif e.key == K_a:
+                move_left    = True
+            elif e.key == K_d:
+                move_right   = True
+            elif e.key == K_ESCAPE: sys.exit()
+        
+        elif e.type == KEYUP:
+            if e.key == K_w:
+                move_forward = False
+            elif e.key == K_s:
+                move_back    = False
+            elif e.key == K_a:
+                move_left    = False
+            elif e.key == K_d:
+                move_right   = False
+
         elif e.type == MOUSEBUTTONDOWN:
             if e.button == 4: zpos = max(1, zpos-1)
             elif e.button == 5: zpos += 1
@@ -84,6 +155,22 @@ while 1:
                 tx += i
                 ty -= j
 
+    a = chek_collisions(personagem,collision_mask)
+    #print (a)
+    #============== movimentacao =================
+    if move_forward and a['up'] == 0:
+    	personagem.pos[0] -= move_speed
+
+    elif move_back and a['down'] == 0:
+    	personagem.pos[0] += move_speed
+
+    elif move_left and a['left'] == 0:
+    	personagem.pos[2] += move_speed
+
+    elif move_right and a['right'] == 0:
+    	personagem.pos[2] -= move_speed
+    #=============================================
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
 
@@ -93,42 +180,72 @@ while 1:
     glRotate(ry, 1, 0, 0)
     glRotate(rx, 0, 1, 0)
 
+    #print(rx, ry) -90, 88
+    #print(tx, ty) 4 -1
+    #print(zpos)   9
+
     # ============ estrutura =============
-    render(walls)
+    for wall in walls:
+        render(wall)
     # portas e janelas
+    render(floor)
+    render(window)
+    render(window, pos=[2.8,0,8])
+    render(window, pos=[-1.3,0,0], rot=[0,90,0])
+    render(window, pos=[-1.3,0,13.9], rot=[0,90,0])
     # ====================================
 
     # ============ sala ===================
-    render(couch)
-    render(table , pos=[3.3,0,-2.5], rot=[0,90,0], scale=[.7,.7,.7])
-    render(scream, pos=[3,3.5,-6.7], scale=[.8,.8,1])
-    render(carpet, pos=[-.3,0,1], scale=[1.3, 1 ,1.3])
+    #render(couch)
+    #render(table , table.pos, table.rot, table.scale )
+    #render(scream, scream.pos, scream.scale          )
+    #render(carpet, carpet.pos, carpet.scale)
+    couch.render()
+    table.render()
+    scream.render()
+    carpet.render()
     # ======================================
 
     # ============ cozinha ===================
-    render(pia , pos=[8.50, -1, 2.90], rot=[0,180,0])
-    render(fogao , pos=[3.20, 0.90, 1.30])
-    render(estante , pos=[3.85, -0.39, 5.6])
-    render(tapete , pos=[6, -1.2, 5.6], rot=[0,90,0])
+    #render(pia , pia.pos, pia.rot)
+    #render(fogao , fogao.pos)
+    #render(estante , estante.pos)
+    #render(tapete , tapete.pos, tapete.rot)
+    pia.render()
+    fogao.render()
+    estante.render()
+    tapete.render()
     # ======================================
     
     #============= quarto 1 ===================
-    render(cama1)
-    render(wardrobe1)
+    #render(cama1)
+    #render(wardrobe1)
+    cama1.render()
+    wardrobe1.render()
     #==========================================
     #============= quarto 2 ===================
-    render(cama2 ,    pos=[0,0,-10])
-    render(wardrobe2, pos=[0,0,-10])
+    #render(cama2 ,    cama2.pos    )
+    #render(wardrobe2, wardrobe2.pos)
+    cama2.render()
+    wardrobe2.render()
     #==========================================
     
     # ============ Banheiro ================
-    render(bathtub,pos=[0,0.61,5.8],rot=[0,90,0],scale=[.7,.7,.6])
-    render(toilet,pos=[1.6,-0.04,3],rot=[0,180,0],scale=[.5,.5,.55])
-    render(sink,pos=[-1.5,0.5,3],rot=[0,0,0],scale=[2,2,2])
+    #render(bathtub,bathtub.pos,bathtub.rot,bathtub.scale)
+    #render(toilet,toilet.pos,toilet.rot,toilet.scale)
+    #render(sink,sink.pos,sink.rot,sink.scale)
+    bathtub.render()
+    toilet.render()
+    sink.render()
     # ======================================
+    personagem.render()
+
 
     glPopMatrix()
     # ==================================
 
-    pygame.display.set_caption('projeto - CG')
+    pygame.display.set_caption('projeto - CG | FPS: %.2f' %clock.get_fps())
     pygame.display.flip()
+
+    #collision = check_box_collision(get_vertices(table), get_vertices(walls[0]))
+    #collision = check_mesh_collision(table, couch)
