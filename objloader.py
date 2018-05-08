@@ -86,6 +86,7 @@ class OBJ:
             vertices, normals, texture_coords, material = face
 
             mtl = self.mtl[material]
+            
             if 'texture_Kd' in mtl:
                 # diffuse texmap
                 glBindTexture(GL_TEXTURE_2D, mtl['texture_Kd'])

@@ -25,9 +25,6 @@ glEnable(GL_COLOR_MATERIAL)
 glEnable(GL_DEPTH_TEST)
 glShadeModel(GL_SMOOTH) # shader
 
-font = pygame.font.SysFont(None, 55)
-WHITE = (255, 255, 255)
-text = font.render('Use W, A, S, D to move', True, WHITE)
 # carrega o obj
 # gabriel ===============================
 walls = [
@@ -58,6 +55,14 @@ walls = [
 		]
 
 #walls  = OBJ("walls.obj", swapyz=True)
+door   = OBJ("door.obj",scale=[.8,.8,.9],pos=[7,0,-3.35],rot=[0,90,0])
+door2  = OBJ("door.obj",scale=[.8,.8,.9],pos=[6.84,0,6.9],rot=[0,0,0])
+door3  = OBJ("door.obj",scale=[.8,.8,.9],pos=[0,0,-6.8],rot=[0,0,0])
+
+porta_banheiro  = OBJ("door.obj",scale=[.8,.8,.9],pos=[0,0,1.2], rot=[0,0,0])
+porta_quarto    = OBJ("door.obj",scale=[.8,.8,.9],pos=[-5,0,-.9],rot=[0,90,0])
+porta_quarto2   = OBJ("door.obj",scale=[.8,.8,.9],pos=[-2.7,0,-1.2],rot=[0,0,0])
+
 window = OBJ("window.obj")
 floor  = OBJ("floor.obj" )
 couch  = OBJ("couch.obj", pos=[0,0,0] )
@@ -79,9 +84,14 @@ bathtub = OBJ("bathtub.obj")
 sink    = OBJ("sink.obj")
 toilet  = OBJ("toilet.obj")
 
+trigger_banheiro = OBJ("trigger_banheiro.obj",isTrigger=True)
+trigger_quarto   = OBJ("trigger_quarto.obj", isTrigger=True)
+trigger_quarto2  = OBJ("trigger_quarto2.obj", isTrigger=True)
+trigger_quarto3  = OBJ("trigger_quarto3.obj", isTrigger=True)
+
 collision_mask = [couch,table,pia,fogao,estante,cama1,cama2,wardrobe1,wardrobe2,bathtub,sink,toilet]
 for x in range (len(walls)):
-	if x not in [3,6,10   , 15,18,21]:
+	if x not in [15,18,21]: #3,6,10   sao as de fora
 		collision_mask.append(walls[x])
 
 personagem = OBJ("cubo.obj",pos=[0,0,0])
@@ -110,6 +120,12 @@ move_back    = False
 move_left    = False
 move_right   = False
 move_speed   = 0.1
+
+# animacao das portas
+open_speed = 6
+abrir_banheiro = False
+abrir_quarto   = False
+abrir_quarto2  = False
 
 while 1:
     clock.tick(30)
@@ -154,9 +170,28 @@ while 1:
             if move:
                 tx += i
                 ty -= j
-
+    # colisao geral =========================================
     a = chek_collisions(personagem,collision_mask)
-    #print (a)
+    # colisao com triggers =====================================
+    t_banheiro = chek_collisions(personagem,[trigger_banheiro])
+    t_quarto   = chek_collisions(personagem,[trigger_quarto2])
+    t_quarto_2 = chek_collisions(personagem,[trigger_quarto3])
+    t_quarto2  = chek_collisions(personagem,[trigger_quarto])
+    #===========================================================
+
+    # condicao do trigger para animar portas =====================
+    if t_banheiro['left'] != 0:
+    	abrir_banheiro = True
+    else: abrir_banheiro = False
+
+    if t_quarto['right'] != 0 or t_quarto_2['up'] != 0:
+    	abrir_quarto = True
+    else: abrir_quarto = False
+
+    if t_quarto2['right'] != 0:
+    	abrir_quarto2 = True
+    else: abrir_quarto2 = False
+    # ===========================================================
     #============== movimentacao =================
     if move_forward and a['up'] == 0:
     	personagem.pos[0] -= move_speed
@@ -180,14 +215,38 @@ while 1:
     glRotate(ry, 1, 0, 0)
     glRotate(rx, 0, 1, 0)
 
-    #print(rx, ry) -90, 88
-    #print(tx, ty) 4 -1
-    #print(zpos)   9
-
     # ============ estrutura =============
     for wall in walls:
-        render(wall)
-    # portas e janelas
+        wall.render()
+
+    door.render()
+    door2.render()
+    door3.render()
+
+    # portas animadas ==================================
+    # ######## banheiro
+    porta_banheiro.render()
+    if(abrir_banheiro):
+    	if (porta_banheiro.rot[1] < 150): porta_banheiro.rot[1] += 1 * open_speed
+    	else: abrir_banheiro = False
+    else:
+    	if (porta_banheiro.rot[1] > 0): porta_banheiro.rot[1] -= 1 * open_speed
+    # ######## quarto
+    porta_quarto.render()
+    if(abrir_quarto):
+    	if (porta_quarto.rot[1] > 0): porta_quarto.rot[1] -= 1 * open_speed
+    	else: abrir_quarto = False
+    else:
+    	if (porta_quarto.rot[1] < 90): porta_quarto.rot[1] += 1 * open_speed
+    # ######## quarto 2
+    porta_quarto2.render()
+    if(abrir_quarto2):
+    	if (porta_quarto2.rot[1] > -100): porta_quarto2.rot[1] -= 1 * open_speed
+    	else: abrir_quarto2 = False
+    else:
+    	if (porta_quarto2.rot[1] < 0): porta_quarto2.rot[1] += 1 * open_speed
+    # ===================================================
+
     render(floor)
     render(window)
     render(window, pos=[2.8,0,8])
@@ -239,7 +298,6 @@ while 1:
     sink.render()
     # ======================================
     personagem.render()
-
 
     glPopMatrix()
     # ==================================
