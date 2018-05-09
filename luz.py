@@ -78,7 +78,7 @@ def iluminacao_da_cena(estadoluz0,estadoluz1,estadoluz2):
     # Habilita a luz de número 2
     if estadoluz2 == 1:
         glEnable(GL_LIGHT2)
-        print('Luz Spot ligada.')
+        #print('Luz Spot ligada.')
     else:
         glDisable(GL_LIGHT2)
     
