@@ -72,6 +72,10 @@ porta_banheiro  = OBJ("door.obj",scale=[.8,.8,.9],pos=[0,0,1.2], rot=[0,0,0])
 porta_quarto    = OBJ("door.obj",scale=[.8,.8,.9],pos=[-5,0,-.9],rot=[0,90,0])
 porta_quarto2   = OBJ("door.obj",scale=[.8,.8,.9],pos=[-2.7,0,-1.2],rot=[0,0,0])
 
+clock_     = OBJ("clock.obj", pos=[-2,3,-4])
+clock_p1   = OBJ("clock_p1.obj",pos=[-2,3,-4],rot=[0,0,0])
+clock_p2   = OBJ("clock_p2.obj",pos=[-2,3,-4],rot=[0,0,0])
+
 window = OBJ("window.obj")
 floor  = OBJ("floor.obj" )
 couch  = OBJ("couch.obj", pos=[0,0,0] )
@@ -104,7 +108,7 @@ for x in range (len(walls)):
 		collision_mask.append(walls[x])
 
 personagem = OBJ("cubo.obj",pos=[0,0,0])
-mesinha = OBJ("cubo.obj",pos=[-3,0,3])
+
 
 clock = pygame.time.Clock()
 
@@ -309,6 +313,13 @@ while 1:
     table.render()
     scream.render()
     carpet.render()
+
+    clock_.render()
+    clock_p1.render()
+    clock_p2.render()
+
+    clock_p1.rot[0] -= 1
+    clock_p2.rot[0] -= 2
     # ======================================
 
     # ============ cozinha ===================
@@ -325,7 +336,6 @@ while 1:
     #============= quarto 1 ===================
     #render(cama1)
     #render(wardrobe1)
-    mesinha.render()
     cama1.render()
     wardrobe1.render()
     #==========================================
@@ -345,6 +355,7 @@ while 1:
     sink.render()
     # ======================================
     personagem.render()
+
 
     Abajur().draw(0.7,{"x":-3,"y":-3,"z":1.45})
     glColor3f(1.0, 1.0, 1.0)
