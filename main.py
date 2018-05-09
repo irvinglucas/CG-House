@@ -1,6 +1,7 @@
 # botao esquerdo: girar objeto
 # botao direito: mover objeto
 # scroll: zoom
+from sys import argv
 import sys, pygame
 from pygame.locals import *
 from pygame.constants import *
@@ -10,6 +11,13 @@ from OpenGL.GLU import *
 from objloader import *
 from util import *
 from luz import *
+from abajur import *
+
+
+glutInit(argv)
+glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH)
+glutInitWindowSize(0,0)
+glutCreateWindow(b"Casa")
 
 pygame.init()
 viewport = (800,600)
@@ -96,7 +104,7 @@ for x in range (len(walls)):
 		collision_mask.append(walls[x])
 
 personagem = OBJ("cubo.obj",pos=[0,0,0])
-
+mesinha = OBJ("cubo.obj",pos=[-3,0,3])
 
 clock = pygame.time.Clock()
 
@@ -317,6 +325,7 @@ while 1:
     #============= quarto 1 ===================
     #render(cama1)
     #render(wardrobe1)
+    mesinha.render()
     cama1.render()
     wardrobe1.render()
     #==========================================
@@ -336,6 +345,9 @@ while 1:
     sink.render()
     # ======================================
     personagem.render()
+
+    Abajur().draw(0.7,{"x":-3,"y":-3,"z":1.45})
+    glColor3f(1.0, 1.0, 1.0)
 
     glPopMatrix()
     # ==================================
