@@ -108,6 +108,7 @@ for x in range (len(walls)):
 		collision_mask.append(walls[x])
 
 personagem = OBJ("cubo.obj",pos=[0,0,0])
+mesinha = OBJ("cubo.obj",pos=[-3,0,3])
 
 
 clock = pygame.time.Clock()
@@ -149,7 +150,7 @@ estadoluz2 = 0
 
 while 1:
     clock.tick(30)
-
+    
     for e in pygame.event.get():
         if e.type == QUIT:
             sys.exit()
@@ -355,7 +356,7 @@ while 1:
     sink.render()
     # ======================================
     personagem.render()
-
+    mesinha.render()
 
     Abajur().draw(0.7,{"x":-3,"y":-3,"z":1.45})
     glColor3f(1.0, 1.0, 1.0)
