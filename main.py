@@ -121,6 +121,7 @@ move_back    = False
 move_left    = False
 move_right   = False
 move_speed   = 0.1
+cam_move_speed = 2.5
 
 # animacao das portas
 open_speed = 6
@@ -223,16 +224,20 @@ while 1:
     # ===========================================================
     #============== movimentacao =================
     if move_forward and a['up'] == 0:
-    	personagem.pos[0] -= move_speed
+        personagem.pos[0] -= move_speed
+        ty -= cam_move_speed
 
     elif move_back and a['down'] == 0:
-    	personagem.pos[0] += move_speed
+        personagem.pos[0] += move_speed
+        ty += cam_move_speed
 
     elif move_left and a['left'] == 0:
-    	personagem.pos[2] += move_speed
+        personagem.pos[2] += move_speed
+        tx += cam_move_speed
 
     elif move_right and a['right'] == 0:
-    	personagem.pos[2] -= move_speed
+        personagem.pos[2] -= move_speed
+        tx -= cam_move_speed
     #=============================================
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
