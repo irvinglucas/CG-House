@@ -2,31 +2,29 @@
 # botao direito: mover objeto
 # scroll: zoom
 import sys, pygame
+from sys import argv
 from pygame.locals import *
 from pygame.constants import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
+from OpenGL.GLUT import *
 # modulo para carregar obj
 from objloader import *
 from util import *
+from abajur import *
 
-pygame.init()
-viewport = (800,600)
-hx = viewport[0]/2
-hy = viewport[1]/2
-srf = pygame.display.set_mode(viewport, OPENGL | DOUBLEBUF)
-# botao esquerdo: girar objeto
-# botao direito: mover objeto
-# scroll: zoom
-import sys, pygame
-from pygame.locals import *
-from pygame.constants import *
-from OpenGL.GL import *
-from OpenGL.GLU import *
 # modulo para carregar obj
 from objloader import *
 from util import *
 from luz import *
+
+
+
+glutInit(argv)
+glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH)
+glutInitWindowSize(0,0)
+glutCreateWindow(b"Quarto")
+
 
 pygame.init()
 viewport = (800,600)
@@ -113,7 +111,7 @@ for x in range (len(walls)):
 		collision_mask.append(walls[x])
 
 personagem = OBJ("cubo.obj",pos=[0,0,0])
-
+mesinha = OBJ("cubo.obj",pos=[-3,0,3])
 
 clock = pygame.time.Clock()
 
@@ -330,6 +328,7 @@ while 1:
     #============= quarto 1 ===================
     #render(cama1)
     #render(wardrobe1)
+    mesinha.render()
     cama1.render()
     wardrobe1.render()
     #==========================================
@@ -350,6 +349,9 @@ while 1:
     # ======================================
     personagem.render()
 
+    Abajur().draw(0.8,{"x":-3,"y":-3,"z":1.6})
+    glColor3f(1.0, 1.0, 1.0)
+
     glPopMatrix()
     # ==================================
 
@@ -366,6 +368,8 @@ glEnable(GL_LIGHTING)
 glEnable(GL_COLOR_MATERIAL)
 glEnable(GL_DEPTH_TEST)
 glShadeModel(GL_SMOOTH) # shader
+
+glColor3f(1.0, 1.0, 1.0)
 
 # carrega o obj
 # gabriel ===============================
@@ -548,6 +552,7 @@ while 1:
     	personagem.pos[2] -= move_speed
     #=============================================
 
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
 
@@ -623,6 +628,8 @@ while 1:
     #render(wardrobe1)
     cama1.render()
     wardrobe1.render()
+    # glColor3f(0,0,0)
+    # mesinha.render()
     #==========================================
     #============= quarto 2 ===================
     #render(cama2 ,    cama2.pos    )
@@ -630,7 +637,7 @@ while 1:
     cama2.render()
     wardrobe2.render()
     #==========================================
-    
+
     # ============ Banheiro ================
     #render(bathtub,bathtub.pos,bathtub.rot,bathtub.scale)
     #render(toilet,toilet.pos,toilet.rot,toilet.scale)
@@ -639,7 +646,7 @@ while 1:
     toilet.render()
     sink.render()
     # ======================================
-    personagem.render()
+    # personagem.render()
 
     glPopMatrix()
     # ==================================
